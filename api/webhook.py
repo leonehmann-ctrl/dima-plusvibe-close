@@ -30,6 +30,10 @@ CLOSE_BASE_URL    = "https://api.close.com/api/v1"
 
 PLUSVIBE_WORKSPACE_ID = "673748c6292c2d7ea644671b"  # DIMA Concept
 
+# Custom field IDs in DIMA's Close CRM
+CF_BRANCHE     = "cf_A7RkR6MIlol3GiWjsfVkByWLcnNNYNoJ21VV80a8GC2"  # 1.01 Branche
+CF_LEADQUELLE  = "cf_0eCOnaAOIBG30ZYXQumUtEPqlwMMVP0Ukr3XOQbqOVI"  # 1.02 Leadquelle
+
 SMTP_HOST     = "smtp.ionos.de"
 SMTP_PORT     = 465
 SMTP_USER     = "newlead@instant-page.com"
@@ -80,6 +84,8 @@ def create_close_lead(payload: dict) -> str:
             "status_id": CLOSE_STATUS_ID,
             "contacts": [contact],
             "description": "\n".join(desc_parts),
+            f"custom.{CF_BRANCHE}": "Immobilien Makler",
+            f"custom.{CF_LEADQUELLE}": "Positive Reply Call, Instant Lead",
         },
         timeout=20,
     )
