@@ -34,6 +34,9 @@ PLUSVIBE_WORKSPACE_ID = "673748c6292c2d7ea644671b"  # DIMA Concept
 CF_BRANCHE     = "cf_A7RkR6MIlol3GiWjsfVkByWLcnNNYNoJ21VV80a8GC2"  # 1.01 Branche
 CF_LEADQUELLE  = "cf_0eCOnaAOIBG30ZYXQumUtEPqlwMMVP0Ukr3XOQbqOVI"  # 1.02 Leadquelle
 
+# Lead owner: Leon Ehmann
+LEAD_OWNER_ID  = "user_VKAbb03k5f7NwrwZ0bjNoN55EO575PnHQQkpAVmpGY6"
+
 SMTP_HOST     = "smtp.ionos.de"
 SMTP_PORT     = 465
 SMTP_USER     = "newlead@instant-page.com"
@@ -86,6 +89,7 @@ def create_close_lead(payload: dict) -> str:
             "description": "\n".join(desc_parts),
             f"custom.{CF_BRANCHE}": "Immobilien Makler",
             f"custom.{CF_LEADQUELLE}": "Positive Reply Call, Instant Lead",
+            "lead_owner_id": LEAD_OWNER_ID,
         },
         timeout=20,
     )
