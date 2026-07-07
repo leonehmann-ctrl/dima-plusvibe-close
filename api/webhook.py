@@ -61,9 +61,15 @@ def create_close_lead(payload: dict) -> str:
     job_title    = payload.get("job_title", "")
     linkedin     = payload.get("linkedin_person_url", "")
 
+    city        = payload.get("city", "")
+
     lead_name = company_name or f"{first_name} {last_name}".strip() or from_email
 
     contact: dict = {"name": f"{first_name} {last_name}".strip() or from_email}
+
+    addresses = []
+    if city:
+        addresses = [{"city": city, "label": "business"}]
     if from_email:
         contact["emails"] = [{"email": from_email, "type": "office"}]
     if phone_number:
@@ -87,6 +93,7 @@ def create_close_lead(payload: dict) -> str:
             "name": lead_name,
             "status_id": CLOSE_STATUS_ID,
             "contacts": [contact],
+            **(({"addresses": addresses}) if addresses else {}),
             "description": "\n".join(desc_parts),
             f"custom.{CF_BRANCHE}": "Immobilien Makler",
             f"custom.{CF_LEADQUELLE}": "Positive Reply Call, Instant Lead",
