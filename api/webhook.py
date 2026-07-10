@@ -201,28 +201,34 @@ class handler(BaseHTTPRequestHandler):
             self.wfile.write(b'{"error":"invalid payload"}')
             return
 
-        self.send_response(200)
-        self.send_header("Content-Type", "application/json")
-        self.end_headers()
-
         event        = payload.get("webhook_event", "")
         workspace_id = payload.get("workspace_id", "")
 
         # Filter: only DIMA Concept workspace
         if workspace_id != PLUSVIBE_WORKSPACE_ID:
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
             self.wfile.write(json.dumps({"skipped": "wrong workspace"}).encode())
             return
 
         # Only process ALL_POSITIVE_REPLIES – ignore all other events to avoid duplicates
         if event != "ALL_POSITIVE_REPLIES":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
             self.wfile.write(json.dumps({"skipped": f"event {event} ignored"}).encode())
             return
 
+        # Send 200 immediately so PlusVibe does not retry the webhook
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.end_headers()
+        self.wfile.write(json.dumps({"received": True}).encode())
+
+        # Now process the lead (after response is already sent)
         try:
             lead_id = create_close_lead(payload)
             send_notification(payload, lead_id)
-            self.wfile.write(json.dumps({"success": True, "close_lead_id": lead_id}).encode())
-        except requests.HTTPError as e:
-            self.wfile.write(json.dumps({"error": f"Close API: {e.response.status_code}"}).encode())
-        except Exception as e:
-            self.wfile.write(json.dumps({"error": str(e)}).encode())
+        except Exception:
+            pass
