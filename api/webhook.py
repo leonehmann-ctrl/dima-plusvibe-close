@@ -34,9 +34,9 @@ PLUSVIBE_WORKSPACE_ID = "673748c6292c2d7ea644671b"  # DIMA Concept
 CF_BRANCHE     = "cf_A7RkR6MIlol3GiWjsfVkByWLcnNNYNoJ21VV80a8GC2"  # 1.01 Branche
 CF_LEADQUELLE  = "cf_0eCOnaAOIBG30ZYXQumUtEPqlwMMVP0Ukr3XOQbqOVI"  # 1.02 Leadquelle
 
-# Lead owner: Leon Ehmann (user-type custom field)
+# Lead owner: Christian Prell (user-type custom field)
 CF_LEAD_OWNER  = "cf_vVzqicxXtvyHk3sn8OmL6Pdh80fCXUVGXr1s2K6D0AT"  # 3.0 Lead Owner
-LEAD_OWNER_ID  = "user_VKAbb03k5f7NwrwZ0bjNoN55EO575PnHQQkpAVmpGY6"
+LEAD_OWNER_ID  = "user_yI5BxYHbYQJFa2HU7L8PeV8vZcb5oKqkvWiZJx1rPr8"
 
 SMTP_HOST     = "smtp.ionos.de"
 SMTP_PORT     = 465
